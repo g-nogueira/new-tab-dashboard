@@ -10,13 +10,28 @@ function initializeWidgetConfigs() {
             padding: "10px"
             borderRadius: "5px"
           apiCall:
-            url: "https://api.github.com/repos/LetsGetChecked/halo-api/pulls?state=open"
+            url: "https://api.github.com/repos/octokit/octokit.js/pulls?state=open"
             method: "GET"
             headers:
               Authorization: "Bearer YOUR_GITHUB_TOKEN"
               Accept: "application/vnd.github+json"
               X-GitHub-Api-Version: "2022-11-28"
-          displayTemplate: "<div><h3>{{ name }}</h3><p>{{ description }}</p>{{#each items}}<p>{{ this.title }} - <a href='{{ this.html_url }}'>Link</a></p>{{/each}}</div>"
+          displayTemplate: |
+            <div>
+              <h3>{{ name }}</h3>
+              <p>{{ description }}</p>
+              <ul>
+                {{#data}}
+                  <li>
+                    <a href="{{ html_url }}" target="_blank">{{ title }}</a>
+                    - Created at: {{ created_at }}
+                  </li>
+                {{/data}}
+                {{^data}}
+                  <li>No open pull requests.</li>
+                {{/data}}
+              </ul>
+            </div>
         `
     };
 

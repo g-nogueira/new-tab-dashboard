@@ -15,30 +15,29 @@ async function loadAndDisplayWidgets() {
 }
 
 function displayWidget(config) {
-    // Create widget container
     const widgetContainer = document.createElement('div');
     widgetContainer.setAttribute('id', config.id);
     Object.assign(widgetContainer.style, config.style);
 
     if (config.apiCall) {
-        // API call is specified, fetch data
         fetch(config.apiCall.url, {
-            method: config.apiCall.method || 'GET',
+            method: config.apiCall.method,
             headers: new Headers(config.apiCall.headers)
         })
-        .then(response => response.json())
-        .then(data => {
-            // Render the template with the fetched data
-            const renderedContent = nunjucks.renderString(config.displayTemplate, {data: data});
-            widgetContainer.innerHTML = renderedContent;
-        })
-        .catch(error => console.error('Error fetching or rendering widget data:', error));
+            .then(response => response.json())
+            .then(data => {
+                const renderedContent = Mustache.render(config.displayTemplate, { name: config.name, description: config.description, data: data });
+                widgetContainer.innerHTML = renderedContent;
+            })
+            .catch(error => console.error('Error fetching or rendering widget data:', error));
     } else {
-        // Static content, render template directly
-        const renderedContent = nunjucks.renderString(config.displayTemplate, {});
+        const renderedContent = Mustache.render(config.displayTemplate, { name: config.name, description: config.description });
         widgetContainer.innerHTML = renderedContent;
     }
 
     document.body.appendChild(widgetContainer);
 }
+
+
+
 
