@@ -15,7 +15,12 @@ async function loadAndDisplayWidgets() {
 }
 
 function displayWidget(config) {
-    const widgetContainer = document.createElement('div');
+    const widgetContainer = document.createElement('widget-card');
+
+    if (config.width) {
+        widgetContainer.setAttribute('width', config.width);
+    }
+
     widgetContainer.setAttribute('id', config.id);
     Object.assign(widgetContainer.style, config.style);
 
@@ -37,7 +42,3 @@ function displayWidget(config) {
 
     document.body.appendChild(widgetContainer);
 }
-
-
-
-

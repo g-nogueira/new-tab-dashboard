@@ -9,6 +9,7 @@ function initializeWidgetConfigs() {
             color: "#333"
             padding: "10px"
             borderRadius: "5px"
+          width: "500px" # Specify width here
           apiCall:
             url: "https://api.github.com/repos/octokit/octokit.js/pulls?state=open"
             method: "GET"
