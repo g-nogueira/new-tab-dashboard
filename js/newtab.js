@@ -18,12 +18,18 @@ function displayWidget(config) {
     const widgetContainer = document.createElement('widget-card');
 
     if (config.width) {
-        widgetContainer.setAttribute('width', config.width);
+        widgetContainer.style.setProperty('--card-width', config.width);
     }
 
-    widgetContainer.setAttribute('id', config.id);
-    Object.assign(widgetContainer.style, config.style);
+    // Header
+    if (config.header && config.header.display) {
+        let headerContent = document.createElement('div');
+        headerContent.setAttribute('slot', 'header');
+        headerContent.innerHTML = config.header.displayTemplate ? Mustache.render(config.header.displayTemplate, { name: config.name }) : `<h3>${config.name}</h3>`;
+        widgetContainer.appendChild(headerContent); // This line needs correction.
+    }
 
+    // Body
     if (config.apiCall) {
         fetch(config.apiCall.url, {
             method: config.apiCall.method,
@@ -31,14 +37,21 @@ function displayWidget(config) {
         })
             .then(response => response.json())
             .then(data => {
-                const renderedContent = Mustache.render(config.displayTemplate, { name: config.name, description: config.description, data: data });
-                widgetContainer.innerHTML = renderedContent;
+                let bodyContent = document.createElement('div');
+                bodyContent.setAttribute('slot', 'body');
+                bodyContent.innerHTML = Mustache.render(config.body.displayTemplate, { description: config.description, data: data });
+                widgetContainer.appendChild(bodyContent); // This line needs correction.
             })
             .catch(error => console.error('Error fetching or rendering widget data:', error));
-    } else {
-        const renderedContent = Mustache.render(config.displayTemplate, { name: config.name, description: config.description });
-        widgetContainer.innerHTML = renderedContent;
     }
 
-    document.body.appendChild(widgetContainer);
+    // Footer
+    if (config.footer && config.footer.display) {
+        let footerContent = document.createElement('div');
+        footerContent.setAttribute('slot', 'footer');
+        footerContent.innerHTML = config.footer.displayTemplate ? Mustache.render(config.footer.displayTemplate, { name: config.name }) : `<h3>${config.name}</h3>`;
+        widgetContainer.appendChild(footerContent); // This line needs correction.
+    }
+
+    document.getElementById('widget-container').appendChild(widgetContainer);
 }
