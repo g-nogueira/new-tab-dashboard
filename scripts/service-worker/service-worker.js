@@ -4,12 +4,16 @@ function initializeWidgetConfigs() {
         - id: "githubPRs"
           name: "GitHub Pull Requests"
           description: "Displays open pull requests from a specified repository."
+          display: true
           header:
             display: true
             style:
-              backgroundColor: "#fff"
+              card-background-color: "#fff"
             displayTemplate: "<h3>{{ name }}</h3>"
+          
           width: "500px" # Specify width here
+          style:
+            card-background-color: "#fff"
           apiCall:
             url: "https://api.github.com/repos/octokit/octokit.js/pulls?state=open"
             method: "GET"
@@ -18,6 +22,7 @@ function initializeWidgetConfigs() {
               Accept: "application/vnd.github+json"
               X-GitHub-Api-Version: "2022-11-28"
           body:
+            display: true
             displayTemplate: |
               <div>
                 <p>{{ description }}</p>

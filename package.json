@@ -6,12 +6,38 @@
   "directories": {
     "lib": "lib"
   },
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.5.3",
+    "@tsconfig/svelte": "^5.0.0",
+    "@types/chrome": "^0.0.242",
+    "@types/js-yaml": "^4.0.9",
+    "@types/mustache": "^4.2.5",
+    "svelte": "^4.0.5",
+    "svelte-check": "^3.4.6",
+    "tslib": "^2.6.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "canvas-confetti": "^1.6.0",
+    "howler": "^2.2.3",
+    "js-yaml": "^4.1.0",
+    "mustache": "^4.2.0",
+    "sass": "^1.64.2",
+    "svelte-fa": "^3.0.4",
+    "uuid": "^9.0.0"
   }
 }
